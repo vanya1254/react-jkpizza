@@ -1,6 +1,6 @@
 export const Sort = () => (
-  <div class="sort">
-    <div class="sort__label">
+  <div className="sort">
+    <div className="sort__label">
       <svg
         width="10"
         height="6"

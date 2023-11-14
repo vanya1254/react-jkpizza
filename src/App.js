@@ -5,21 +5,23 @@ import { Categories } from "./components/Categories";
 import { Sort } from "./components/Sort";
 import { PizzaBlock } from "./components/PizzaBlock";
 
+import pizzas from "./assets/pizzas.json";
+
 function App() {
   return (
-    <div class="wrapper">
+    <div className="wrapper">
       <Header />
-      <div class="content">
-        <div class="container">
-          <div class="content__top">
+      <div className="content">
+        <div className="container">
+          <div className="content__top">
             <Categories />
             <Sort />
           </div>
-          <h2 class="content__title">Все пиццы</h2>
-          {true ? (
-            <PizzaBlock />
+          <h2 className="content__title">Все пиццы</h2>
+          {pizzas.length > 0 ? (
+            pizzas.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />)
           ) : (
-            <div class="content__error-info">
+            <div className="content__error-info">
               <h2>Произошла ошибка 😕</h2>
               <p>
                 К сожалению, не удалось получить питсы. Попробуйте повторить
@@ -27,10 +29,10 @@ function App() {
               </p>
             </div>
           )}
-          {/* <ul class="Pagination_root__uwB0O">
-            <li class="previous disabled">
+          {/* <ul className="Pagination_root__uwB0O">
+            <li className="previous disabled">
               <a
-                class=" "
+                className=" "
                 tabindex="-1"
                 role="button"
                 aria-disabled="true"
@@ -40,7 +42,7 @@ function App() {
                 &lt;
               </a>
             </li>
-            <li class="selected">
+            <li className="selected">
               <a
                 rel="canonical"
                 role="button"
@@ -61,9 +63,9 @@ function App() {
                 3
               </a>
             </li>
-            <li class="next">
+            <li className="next">
               <a
-                class=""
+                className=""
                 tabindex="0"
                 role="button"
                 aria-disabled="false"
