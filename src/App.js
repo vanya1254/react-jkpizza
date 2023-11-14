@@ -18,17 +18,20 @@ function App() {
             <Sort />
           </div>
           <h2 className="content__title">Все пиццы</h2>
-          {pizzas.length > 0 ? (
-            pizzas.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />)
-          ) : (
-            <div className="content__error-info">
-              <h2>Произошла ошибка 😕</h2>
-              <p>
-                К сожалению, не удалось получить питсы. Попробуйте повторить
-                попытку позже.
-              </p>
-            </div>
-          )}
+          <div class="content__items">
+            {pizzas.length > 0 ? (
+              pizzas.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />)
+            ) : (
+              <div className="content__error-info">
+                <h2>Произошла ошибка 😕</h2>
+                <p>
+                  К сожалению, не удалось получить питсы. Попробуйте повторить
+                  попытку позже.
+                </p>
+              </div>
+            )}
+          </div>
+
           {/* <ul className="Pagination_root__uwB0O">
             <li className="previous disabled">
               <a

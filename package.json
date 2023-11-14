@@ -24,6 +24,10 @@
       "react-app/jest"
     ]
   },
+  "overrides": {
+    "nth-check": "^2.1.1",
+    "postcss": "^8.4.31"
+  },
   "browserslist": {
     "production": [
       ">0.2%",
