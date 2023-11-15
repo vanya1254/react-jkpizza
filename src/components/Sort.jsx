@@ -20,8 +20,8 @@ export const Sort = () => {
   };
 
   return (
-    <div class="sort">
-      <div class="sort__label">
+    <div className="sort">
+      <div className="sort__label">
         <svg
           width="10"
           height="6"
@@ -38,12 +38,13 @@ export const Sort = () => {
         <span onClick={() => setIsOpen(!isOpen)}>{selectedType}</span>
       </div>
       {isOpen && (
-        <div class="sort__popup">
+        <div className="sort__popup">
           <ul>
             {typesSort.map((type, typeIndex) => (
               <li
+                key={typeIndex}
                 onClick={() => onClickTypeSort(typeIndex)}
-                class={activeType === typeIndex ? "active" : ""}
+                className={activeType === typeIndex ? "active" : ""}
               >
                 {type}
               </li>

@@ -1,3 +1,5 @@
+import React from "react";
+
 import "./scss/app.scss";
 
 import { Header } from "./components/Header";
@@ -5,9 +7,17 @@ import { Categories } from "./components/Categories";
 import { Sort } from "./components/Sort";
 import { PizzaBlock } from "./components/PizzaBlock";
 
-import pizzas from "./assets/pizzas.json";
-
 function App() {
+  const [items, setItems] = React.useState([]);
+
+  React.useEffect(() => {
+    fetch("https://3fbdd3c00f84b334.mokky.dev/items").then((res) =>
+      res.json().then((jsonArr) => {
+        setItems(jsonArr);
+      })
+    );
+  }, []);
+
   return (
     <div className="wrapper">
       <Header />
@@ -18,14 +28,14 @@ function App() {
             <Sort />
           </div>
           <h2 className="content__title">Все пиццы</h2>
-          <div class="content__items">
-            {pizzas.length > 0 ? (
-              pizzas.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />)
+          <div className="content__items">
+            {items.length > 0 ? (
+              items.map((item) => <PizzaBlock key={item.id} {...item} />)
             ) : (
               <div className="content__error-info">
                 <h2>Произошла ошибка 😕</h2>
                 <p>
-                  К сожалению, не удалось получить питсы. Попробуйте повторить
+                  К сожалению, не удалось получить пиццы. Попробуйте повторить
                   попытку позже.
                 </p>
               </div>
