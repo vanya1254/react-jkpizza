@@ -10,7 +10,7 @@ export const Home = () => {
   const { items, isLoading } = React.useContext(ItemsLoadingContext);
 
   return (
-    <>
+    <div className="container">
       <div className="content__top">
         <Categories />
         <Sort />
@@ -69,6 +69,6 @@ export const Home = () => {
       </a>
     </li>
   </ul> */}
-    </>
+    </div>
   );
 };

@@ -2,9 +2,12 @@
 
 .sort {
   position: relative;
+  padding-left: 20px;
+
   &__label {
     display: flex;
     align-items: center;
+    min-width: 310px;
 
     svg {
       margin-right: 8px;
@@ -12,12 +15,20 @@
 
     b {
       margin-right: 8px;
+
+      @media (max-width: 1023px) {
+        display: none;
+      }
     }
 
     span {
       color: $orange;
       border-bottom: 1px dashed $orange;
       cursor: pointer;
+    }
+
+    @media (max-width: 1023px) {
+      min-width: 180px;
     }
   }
 

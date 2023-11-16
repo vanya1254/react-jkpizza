@@ -22,24 +22,23 @@ function App() {
         setIsLoading(false);
       })
     );
+    window.scrollTo(0, 0);
   }, []);
 
   return (
     <div className="wrapper">
       <Header />
       <div className="content">
-        <div className="container">
-          <ItemsLoadingContext.Provider value={{ items, isLoading }}>
-            <Routes>
-              <Route path="cart" element={<Cart />} />
-              {items.length > 0 ? (
-                <Route path="" element={<Home />} />
-              ) : (
-                <Route path="*" element={<NotFound />} />
-              )}
-            </Routes>
-          </ItemsLoadingContext.Provider>
-        </div>
+        <ItemsLoadingContext.Provider value={{ items, isLoading }}>
+          <Routes>
+            <Route path="cart" element={<Cart />} />
+            {items.length > 0 ? (
+              <Route path="" element={<Home />} />
+            ) : (
+              <Route path="*" element={<NotFound />} />
+            )}
+          </Routes>
+        </ItemsLoadingContext.Provider>
       </div>
     </div>
   );
