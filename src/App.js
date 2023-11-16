@@ -1,19 +1,25 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
+
+import { Header } from "./components/Header";
+
+import { Home } from "./pages/Home";
+import { Cart } from "./pages/Cart";
+import { NotFound } from "./pages/NotFound";
+
+import { ItemsLoadingContext } from "./context";
 
 import "./scss/app.scss";
 
-import { Header } from "./components/Header";
-import { Categories } from "./components/Categories";
-import { Sort } from "./components/Sort";
-import { PizzaBlock } from "./components/PizzaBlock";
-
 function App() {
   const [items, setItems] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
     fetch("https://3fbdd3c00f84b334.mokky.dev/items").then((res) =>
       res.json().then((jsonArr) => {
         setItems(jsonArr);
+        setIsLoading(false);
       })
     );
   }, []);
@@ -23,72 +29,16 @@ function App() {
       <Header />
       <div className="content">
         <div className="container">
-          <div className="content__top">
-            <Categories />
-            <Sort />
-          </div>
-          <h2 className="content__title">Все пиццы</h2>
-          <div className="content__items">
-            {items.length > 0 ? (
-              items.map((item) => <PizzaBlock key={item.id} {...item} />)
-            ) : (
-              <div className="content__error-info">
-                <h2>Произошла ошибка 😕</h2>
-                <p>
-                  К сожалению, не удалось получить пиццы. Попробуйте повторить
-                  попытку позже.
-                </p>
-              </div>
-            )}
-          </div>
-
-          {/* <ul className="Pagination_root__uwB0O">
-            <li className="previous disabled">
-              <a
-                className=" "
-                tabindex="-1"
-                role="button"
-                aria-disabled="true"
-                aria-label="Previous page"
-                rel="prev"
-              >
-                &lt;
-              </a>
-            </li>
-            <li className="selected">
-              <a
-                rel="canonical"
-                role="button"
-                tabindex="-1"
-                aria-label="Page 1 is your current page"
-                aria-current="page"
-              >
-                1
-              </a>
-            </li>
-            <li>
-              <a rel="next" role="button" tabindex="0" aria-label="Page 2">
-                2
-              </a>
-            </li>
-            <li>
-              <a role="button" tabindex="0" aria-label="Page 3">
-                3
-              </a>
-            </li>
-            <li className="next">
-              <a
-                className=""
-                tabindex="0"
-                role="button"
-                aria-disabled="false"
-                aria-label="Next page"
-                rel="next"
-              >
-                &gt;
-              </a>
-            </li>
-          </ul> */}
+          <ItemsLoadingContext.Provider value={{ items, isLoading }}>
+            <Routes>
+              <Route path="cart" element={<Cart />} />
+              {items.length > 0 ? (
+                <Route path="" element={<Home />} />
+              ) : (
+                <Route path="*" element={<NotFound />} />
+              )}
+            </Routes>
+          </ItemsLoadingContext.Provider>
         </div>
       </div>
     </div>

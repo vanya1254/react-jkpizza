@@ -25,7 +25,7 @@ export const PizzaBlock = ({
           alt="Пепперони фреш"
         />
         <h4 className="pizza-block__title">{title}</h4>
-
+        {/* TODO description block */}
         <div className="pizza-block__selector">
           <ul>
             {types.map((typeIndex) => (
