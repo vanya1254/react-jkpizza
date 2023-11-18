@@ -1,7 +1,6 @@
 import React from "react";
 
-export const Categories = () => {
-  const [activeCategory, setActiveCategory] = React.useState(0);
+export const Categories = ({ categoryId, onChangeCategory }) => {
   const categories = [
     "Все",
     "Мясные",
@@ -17,8 +16,8 @@ export const Categories = () => {
         {categories.map((category, categoryIndex) => (
           <li
             key={categoryIndex}
-            onClick={() => setActiveCategory(categoryIndex)}
-            className={activeCategory === categoryIndex ? "active" : ""}
+            onClick={() => onChangeCategory(categoryIndex)}
+            className={categoryId === categoryIndex ? "active" : ""}
           >
             {category}
           </li>

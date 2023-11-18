@@ -1,5 +1,7 @@
 import React from "react";
 
+// import styles from "./PizzaBlock.module.scss";
+
 export const PizzaBlock = ({
   id,
   imageUrl,

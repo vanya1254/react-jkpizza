@@ -7,40 +7,29 @@ import { Home } from "./pages/Home";
 import { Cart } from "./pages/Cart";
 import { NotFound } from "./pages/NotFound";
 
-import { ItemsLoadingContext } from "./context";
+import { SearchContext } from "./context";
 
 import "./scss/app.scss";
 
 function App() {
-  const [items, setItems] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    fetch("https://3fbdd3c00f84b334.mokky.dev/items").then((res) =>
-      res.json().then((jsonArr) => {
-        setItems(jsonArr);
-        setIsLoading(false);
-      })
-    );
-    window.scrollTo(0, 0);
-  }, []);
+  const [searchValue, setSearchValue] = React.useState("");
 
   return (
-    <div className="wrapper">
-      <Header />
-      <div className="content">
-        <ItemsLoadingContext.Provider value={{ items, isLoading }}>
+    <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+      <div className="wrapper">
+        <Header />
+        <div className="content">
           <Routes>
             <Route path="cart" element={<Cart />} />
-            {items.length > 0 ? (
-              <Route path="" element={<Home />} />
-            ) : (
-              <Route path="*" element={<NotFound />} />
-            )}
+            {/* {items.length > 0 ? ( */}
+            <Route path="" element={<Home />} />
+            {/* ) : ( */}
+            <Route path="*" element={<NotFound />} />
+            {/* )} */}
           </Routes>
-        </ItemsLoadingContext.Provider>
+        </div>
       </div>
-    </div>
+    </SearchContext.Provider>
   );
 }
 

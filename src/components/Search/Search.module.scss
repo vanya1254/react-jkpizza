@@ -1,0 +1,43 @@
+.root {
+  position: relative;
+
+  .icon {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+
+    width: 24px;
+
+    cursor: pointer;
+  }
+
+  .input {
+    border: 1px solid #00000010;
+    border-radius: 10px;
+
+    padding: 8px 40px;
+    padding-right: 32px;
+    width: 300px;
+
+    font-size: 16px;
+
+    &:focus {
+      border: 1px solid #00000020;
+    }
+  }
+
+  .clearIcon {
+    position: absolute;
+    top: 10px;
+    right: 8px;
+
+    width: 20px;
+    height: 20px;
+
+    cursor: pointer;
+
+    &:hover path:first-child {
+      fill: #00000080;
+    }
+  }
+}

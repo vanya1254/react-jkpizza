@@ -1,21 +1,19 @@
 import React from "react";
 
-export const Sort = () => {
+export const Sort = ({ typeId, onChangeSort }) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [activeType, setActiveType] = React.useState(0);
 
   const typesSort = [
-    "популярности (DESC)",
-    "популярности (ASC)",
-    "цене (DESC)",
-    "цене (ASC)",
-    "алфавиту (DESC)",
-    "алфавиту (ASC)",
+    { name: "популярности (DESC)", sortProperty: "rating" },
+    { name: "популярности (ASC)", sortProperty: "-rating" },
+    { name: "цене (DESC)", sortProperty: "price" },
+    { name: "цене (ASC)", sortProperty: "-price" },
+    { name: "алфавиту (DESC)", sortProperty: "title" },
+    { name: "алфавиту (ASC)", sortProperty: "-title" },
   ];
-  const selectedType = typesSort[activeType];
 
   const onClickTypeSort = (index) => {
-    setActiveType(index);
+    onChangeSort(index);
     setIsOpen(!isOpen);
   };
 
@@ -35,7 +33,7 @@ export const Sort = () => {
           ></path>
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsOpen(!isOpen)}>{selectedType}</span>
+        <span onClick={() => setIsOpen(!isOpen)}>{typeId.name}</span>
       </div>
       {isOpen && (
         <div className="sort__popup">
@@ -43,10 +41,10 @@ export const Sort = () => {
             {typesSort.map((type, typeIndex) => (
               <li
                 key={typeIndex}
-                onClick={() => onClickTypeSort(typeIndex)}
-                className={activeType === typeIndex ? "active" : ""}
+                onClick={() => onClickTypeSort(type)}
+                className={typeId === typeIndex ? "active" : ""}
               >
-                {type}
+                {type.name}
               </li>
             ))}
           </ul>
