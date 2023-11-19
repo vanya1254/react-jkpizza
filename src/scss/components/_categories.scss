@@ -4,6 +4,16 @@
   width: 100%;
   overflow: auto;
 
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 6px;
+  }
+
   ul {
     display: flex;
 

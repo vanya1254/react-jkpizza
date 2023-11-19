@@ -1,19 +1,24 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setActiveSortType } from "../redux/slices/filterSlice";
 
-export const Sort = ({ typeId, onChangeSort }) => {
+export const typesSort = [
+  { name: "популярности (DESC)", sortProperty: "rating" },
+  { name: "популярности (ASC)", sortProperty: "-rating" },
+  { name: "цене (DESC)", sortProperty: "price" },
+  { name: "цене (ASC)", sortProperty: "-price" },
+  { name: "алфавиту (DESC)", sortProperty: "title" },
+  { name: "алфавиту (ASC)", sortProperty: "-title" },
+];
+
+export const Sort = () => {
+  const typeId = useSelector((state) => state.filter.activeSortType);
+  const dispatch = useDispatch();
+
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const typesSort = [
-    { name: "популярности (DESC)", sortProperty: "rating" },
-    { name: "популярности (ASC)", sortProperty: "-rating" },
-    { name: "цене (DESC)", sortProperty: "price" },
-    { name: "цене (ASC)", sortProperty: "-price" },
-    { name: "алфавиту (DESC)", sortProperty: "title" },
-    { name: "алфавиту (ASC)", sortProperty: "-title" },
-  ];
-
   const onClickTypeSort = (index) => {
-    onChangeSort(index);
+    dispatch(setActiveSortType(index));
     setIsOpen(!isOpen);
   };
 
