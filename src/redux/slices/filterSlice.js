@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  items: [],
   activeCategory: 0,
   activeSortType: {
     name: "популярности (DESC)",
@@ -14,9 +13,6 @@ export const filterSlice = createSlice({
   name: "filter",
   initialState,
   reducers: {
-    setItems(state, action) {
-      state.items = action.payload;
-    },
     setActiveCategory(state, action) {
       state.activeCategory = action.payload;
     },
@@ -27,7 +23,6 @@ export const filterSlice = createSlice({
       state.activePage = action.payload;
     },
     setFilters(state, action) {
-      // state.items = action.payload.items;
       state.activeCategory = Number(action.payload.activeCategory);
       state.activeSortType = action.payload.activeSortType;
       state.activePage = Number(action.payload.activePage);
@@ -36,7 +31,6 @@ export const filterSlice = createSlice({
 });
 
 export const {
-  setItems,
   setActiveCategory,
   setActiveSortType,
   setActivePage,

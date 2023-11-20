@@ -4,11 +4,8 @@ import qs from "qs";
 import { useNavigate } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setItems,
-  setActivePage,
-  setFilters,
-} from "../redux/slices/filterSlice";
+import { setActivePage, setFilters } from "../redux/slices/filterSlice";
+import { setItems } from "../redux/slices/itemsSlice";
 
 import { Categories } from "../components/Categories";
 import { Sort, typesSort } from "../components/Sort";
@@ -21,36 +18,22 @@ import { SearchContext } from "../context";
 export const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isSearch = React.useRef(false);
+  const isMounted = React.useRef(false);
 
   const { activeCategory, activeSortType, activePage } = useSelector(
     (state) => state.filter
   );
-
-  const items = useSelector((state) => state.filter.items);
+  const { items, cartItems } = useSelector((state) => state.items);
 
   const { searchValue } = React.useContext(SearchContext);
 
-  // const [items, setItems] = React.useState([]);
   const [pageCount, setPageCount] = React.useState(1);
   const [isLoading, setIsLoading] = React.useState(true);
-  // const [activePage, setActivePage] = React.useState(1);
+
   const limit = 4;
 
-  // React.useEffect(() => {
-  //   if (window.location.search) {
-  //     const params = qs.parse(window.location.search.substring(1));
-  //     console.log(params);
-
-  //     const activeSortType = typesSort.find(
-  //       (type) => type.sortProperty === params.sortProperty
-  //     );
-  //     console.log({ ...params, activeCategory });
-
-  //     dispatch(setFilters({ ...params, activeSortType }));
-  //   }
-  // });
-
-  React.useEffect(() => {
+  const fetchItems = () => {
     const filters = [
       activeCategory > 0 ? `category=${activeCategory}` : "",
       activeSortType.sortProperty !== "rating"
@@ -63,11 +46,12 @@ export const Home = () => {
     const activeFilters = filters
       .filter((filter) => filter)
       .map((filter, id) => (id === 0 ? `?${filter}` : `&${filter}`));
+    // ${activeFilters.join("")}
 
+    // const sortBy = activeSortType.sortProperty;
     // const category = activeCategory > 0 ? `category=${activeCategory}` : "";
-    // const sort = `sortBy=${activeSortType.sortProperty}`;
-    // const search = `title=${searchValue}`;
-    //?${category}&${sort}&${search}
+    // const search = searchValue ? `title=*${searchValue}*` : "";
+    //?page=${activePage}&limit=4&${category}&sortBy=${sortBy}&${search}
 
     axios
       .get(`https://3fbdd3c00f84b334.mokky.dev/items${activeFilters.join("")}`)
@@ -77,22 +61,52 @@ export const Home = () => {
         dispatch(setActivePage(res.data.meta.current_page));
         setIsLoading(false);
       });
-
-    window.scrollTo(0, 0);
-  }, [dispatch, activeCategory, activeSortType, searchValue, activePage]);
+  };
 
   React.useEffect(() => {
-    const querryString = qs.stringify({
-      activeCategory,
-      sortProperty: activeSortType.sortProperty,
-      // title: `*${searchValue.toLowerCase()}*`,
-      activePage: `${activePage}&limit=${limit}`,
-    });
+    if (isMounted.current) {
+      const querryString = qs.stringify({
+        category: activeCategory,
+        sortBy: activeSortType.sortProperty,
+        // title: `*${searchValue.toLowerCase()}*`,
+        page: activePage,
+      });
 
-    console.log(querryString);
+      navigate(`?${querryString}`);
+    }
 
-    navigate(`?${querryString}`);
+    isMounted.current = true;
   }, [activeCategory, activeSortType.sortProperty, activePage]);
+
+  React.useEffect(() => {
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+
+      const sortBy = typesSort.find(
+        (type) => type.sortProperty === params.sortBy
+      );
+
+      dispatch(setFilters({ ...params, sortBy }));
+
+      isSearch.current = true;
+    }
+  }, []);
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+
+    if (!isSearch.current) {
+      fetchItems();
+    }
+
+    isSearch.current = false;
+  }, [
+    dispatch,
+    activeCategory,
+    activeSortType.sortProperty,
+    searchValue,
+    activePage,
+  ]);
 
   const pizzaSkeletons = [...new Array(6)].map((_, id) => (
     <Skeleton key={id} />
