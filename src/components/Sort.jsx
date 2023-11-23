@@ -12,19 +12,35 @@ export const typesSort = [
 ];
 
 export const Sort = () => {
-  const typeId = useSelector((state) => state.filter.activeSortType);
   const dispatch = useDispatch();
+  const typeId = useSelector((state) => state.filter.activeSortType);
 
   const [isOpen, setIsOpen] = React.useState(false);
+
+  const sortRef = React.useRef();
 
   const onClickTypeSort = (index) => {
     dispatch(setActiveSortType(index));
     setIsOpen(!isOpen);
   };
 
+  React.useEffect(() => {
+    const handleClickOutSide = (event) => {
+      let el = event.srcElement;
+
+      if (el.parentElement !== sortRef.current) {
+        setIsOpen(false);
+      }
+    };
+
+    document.body.addEventListener("click", handleClickOutSide);
+
+    return () => document.body.removeEventListener("click", handleClickOutSide);
+  }, []);
+
   return (
     <div className="sort">
-      <div className="sort__label">
+      <div ref={sortRef} className="sort__label">
         <svg
           width="10"
           height="6"
