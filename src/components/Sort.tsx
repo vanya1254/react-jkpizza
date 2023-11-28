@@ -1,8 +1,13 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setActiveSortType } from "../redux/slices/filterSlice";
+import { setActiveSortType, filterSelector } from "../redux/slices/filterSlice";
 
-export const typesSort = [
+type TypeSort = {
+  name: string;
+  sortProperty: string;
+};
+
+export const typesSort: TypeSort[] = [
   { name: "популярности (DESC)", sortProperty: "rating" },
   { name: "популярности (ASC)", sortProperty: "-rating" },
   { name: "цене (DESC)", sortProperty: "price" },
@@ -11,21 +16,21 @@ export const typesSort = [
   { name: "алфавиту (ASC)", sortProperty: "-title" },
 ];
 
-export const Sort = () => {
+export const Sort: React.FC = () => {
   const dispatch = useDispatch();
-  const typeId = useSelector((state) => state.filter.activeSortType);
+  const { activeSortType } = useSelector(filterSelector);
 
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const sortRef = React.useRef();
+  const sortRef = React.useRef<HTMLDivElement>(null);
 
-  const onClickTypeSort = (index) => {
-    dispatch(setActiveSortType(index));
+  const onClickTypeSort = (typeSort: TypeSort) => {
+    dispatch(setActiveSortType(typeSort));
     setIsOpen(!isOpen);
   };
 
   React.useEffect(() => {
-    const handleClickOutSide = (event) => {
+    const handleClickOutSide = (event: any) => {
       let el = event.srcElement;
 
       if (el.parentElement !== sortRef.current) {
@@ -54,7 +59,7 @@ export const Sort = () => {
           ></path>
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsOpen(!isOpen)}>{typeId.name}</span>
+        <span onClick={() => setIsOpen(!isOpen)}>{activeSortType.name}</span>
       </div>
       {isOpen && (
         <div className="sort__popup">
@@ -63,7 +68,7 @@ export const Sort = () => {
               <li
                 key={typeIndex}
                 onClick={() => onClickTypeSort(type)}
-                className={typeId === typeIndex ? "active" : ""}
+                className={activeSortType === typeIndex ? "active" : ""}
               >
                 {type.name}
               </li>

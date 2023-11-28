@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 import { MainLayout } from "./components/MainLayout";
@@ -10,7 +9,7 @@ import { NotFound } from "./pages/NotFound";
 
 import "./scss/app.scss";
 
-function App() {
+const App = () => {
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
@@ -21,6 +20,6 @@ function App() {
       </Route>
     </Routes>
   );
-}
+};
 
 export default App;

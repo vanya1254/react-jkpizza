@@ -6,17 +6,26 @@ import { addToItems, cartItemByIdSelector } from "../../redux/slices/cartSlice";
 
 // import styles from "./PizzaBlock.module.scss";
 
+type PizzaBlockProps = {
+  id: number;
+  imageUrl: string;
+  title: string;
+  types: number[];
+  sizes: number[];
+  price: number;
+  category: number;
+  rating: number;
+};
+
 const typesThickness = ["тонкое", "традиционное"];
 
-export const PizzaBlock = ({
+export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   id,
   imageUrl,
   title,
   types,
   sizes,
   price,
-  category,
-  rating,
 }) => {
   const dispatch = useDispatch();
 
@@ -26,7 +35,6 @@ export const PizzaBlock = ({
 
   const [activeThickness, setActiveThickness] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
-  const [pizzaCount, setPizzaCount] = React.useState(0);
 
   const onClickAdd = () => {
     const item = {

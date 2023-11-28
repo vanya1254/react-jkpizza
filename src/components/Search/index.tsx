@@ -6,13 +6,13 @@ import { setSearchValue } from "../../redux/slices/filterSlice";
 
 import styles from "./Search.module.scss";
 
-const Search = () => {
+const Search: React.FC = () => {
   const dispatch = useDispatch();
 
-  const [value, setValue] = React.useState("");
-  const inputRef = React.useRef();
+  const [value, setValue] = React.useState<string>("");
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
-  const onChangeSearchValue = (value) => {
+  const onChangeSearchValue = (value: string) => {
     setValue(value);
     updateSearchValue(value);
   };
@@ -22,10 +22,11 @@ const Search = () => {
     []
   );
 
-  const onClickClear = (str) => {
+  const onClickClear = (str: string) => {
     dispatch(setSearchValue(str));
     setValue(str);
-    inputRef.current.focus();
+
+    inputRef.current?.focus();
   };
 
   return (

@@ -17,7 +17,7 @@ import Skeleton from "../components/PizzaBlock/Skeleton";
 import { Pagination } from "../components/Pagination";
 import NotFoundBlock from "../components/NotFoundBlock";
 
-export const Home = () => {
+export const Home: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSearch = React.useRef(false);
@@ -44,21 +44,23 @@ export const Home = () => {
     //   .map((filter, id) => (id === 0 ? `?${filter}` : `&${filter}`));
     // ${activeFilters.join("")}
 
-    const sortBy = activeSortType.sortProperty;
-    const category = activeCategory > 0 ? `category=${activeCategory}` : "";
-    const search = searchValue ? `title=*${searchValue}*` : "";
-    const page = `page=${activePage}&limit=${limit}`;
+    const sortBy: string = activeSortType.sortProperty;
+    const category: string =
+      activeCategory > 0 ? `category=${activeCategory}` : "";
+    const search: string = searchValue ? `title=*${searchValue}*` : "";
+    const page: string = `page=${activePage}&limit=${limit}`;
     //?${category}&sortBy=${sortBy}&${search}&${page}
 
     dispatch(
+      // @ts-ignore
       fetchItems({
         // filters: activeFilters.join(" "),
         sortBy,
         category,
         search,
         page,
-        setActivePage(current_page) {
-          dispatch(setActivePage(current_page));
+        setActivePage(currentPage: number) {
+          dispatch(setActivePage(currentPage));
         },
       })
     );
@@ -114,7 +116,9 @@ export const Home = () => {
   const pizzaSkeletons = [...new Array(6)].map((_, id) => (
     <Skeleton key={id} />
   ));
-  const pizzas = items.map((item) => <PizzaBlock key={item.id} {...item} />);
+  const pizzas = items.map((item: any) => (
+    <PizzaBlock key={item.id} {...item} />
+  ));
 
   return (
     <div className="container">

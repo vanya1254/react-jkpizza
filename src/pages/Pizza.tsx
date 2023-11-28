@@ -12,7 +12,7 @@ export const Pizza: React.FC = () => {
   }>();
 
   React.useEffect(() => {
-    async function getPizza() {
+    const getPizza = async () => {
       try {
         const { data } = await axios.get(
           `https://3fbdd3c00f84b334.mokky.dev/items/${id}`
@@ -23,7 +23,7 @@ export const Pizza: React.FC = () => {
         console.log(error);
         navigate("/");
       }
-    }
+    };
 
     getPizza();
   }, []);

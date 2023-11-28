@@ -6,7 +6,9 @@ import { setActivePage, filterSelector } from "../../redux/slices/filterSlice";
 
 import styles from "./Pagination.module.scss";
 
-export const Pagination = ({ pages }) => {
+type PaginationProps = { pages: number };
+
+export const Pagination: React.FC<PaginationProps> = ({ pages }) => {
   const dispatch = useDispatch();
 
   const { activePage } = useSelector(filterSelector);

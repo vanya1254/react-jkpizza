@@ -9,7 +9,25 @@ import {
   cartSelector,
 } from "../../redux/slices/cartSlice";
 
-export const CartItem = ({ id, title, price, imageUrl, type, size, count }) => {
+export type CartItemProps = {
+  id: number;
+  title: string;
+  price: number;
+  imageUrl: string;
+  type: string;
+  size: number;
+  count: number;
+};
+
+export const CartItem: React.FC<CartItemProps> = ({
+  id,
+  title,
+  price,
+  imageUrl,
+  type,
+  size,
+  count,
+}) => {
   const dispatch = useDispatch();
 
   const { totalPrice } = useSelector(cartSelector);
