@@ -2,10 +2,14 @@ import axios from "axios";
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-export const Pizza = () => {
+export const Pizza: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [pizza, setPizza] = React.useState({});
+  const [pizza, setPizza] = React.useState<{
+    imageUrl: string;
+    title: string;
+    price: number;
+  }>();
 
   React.useEffect(() => {
     async function getPizza() {
@@ -28,5 +32,11 @@ export const Pizza = () => {
     return "Loading...";
   }
 
-  return <div>{pizza.title}</div>;
+  return (
+    <div className="container">
+      <img src={pizza.imageUrl} alt="pizza" />
+      <h2>{pizza.title}</h2>
+      <h4>{pizza.price}</h4>
+    </div>
+  );
 };
