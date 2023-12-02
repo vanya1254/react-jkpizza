@@ -7,19 +7,10 @@ import {
   removeItem,
   setTotalPrice,
   cartSelector,
+  CartItemType,
 } from "../../redux/slices/cartSlice";
 
-export type CartItemProps = {
-  id: number;
-  title: string;
-  price: number;
-  imageUrl: string;
-  type: string;
-  size: number;
-  count: number;
-};
-
-export const CartItem: React.FC<CartItemProps> = ({
+export const CartItem: React.FC<CartItemType> = ({
   id,
   title,
   price,
@@ -33,7 +24,7 @@ export const CartItem: React.FC<CartItemProps> = ({
   const { totalPrice } = useSelector(cartSelector);
 
   const onClickPlus = () => {
-    dispatch(addToItems({ id }));
+    dispatch(addToItems({ id } as CartItemType));
     dispatch(setTotalPrice(totalPrice + price));
   };
 

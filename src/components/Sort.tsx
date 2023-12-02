@@ -1,13 +1,12 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setActiveSortType, filterSelector } from "../redux/slices/filterSlice";
+import {
+  setActiveSortType,
+  filterSelector,
+  SortType,
+} from "../redux/slices/filterSlice";
 
-type TypeSort = {
-  name: string;
-  sortProperty: string;
-};
-
-export const typesSort: TypeSort[] = [
+export const typesSort: SortType[] = [
   { name: "популярности (DESC)", sortProperty: "rating" },
   { name: "популярности (ASC)", sortProperty: "-rating" },
   { name: "цене (DESC)", sortProperty: "price" },
@@ -24,16 +23,16 @@ export const Sort: React.FC = () => {
 
   const sortRef = React.useRef<HTMLDivElement>(null);
 
-  const onClickTypeSort = (typeSort: TypeSort) => {
+  const onClickTypeSort = (typeSort: SortType) => {
     dispatch(setActiveSortType(typeSort));
     setIsOpen(!isOpen);
   };
 
   React.useEffect(() => {
-    const handleClickOutSide = (event: any) => {
-      let el = event.srcElement;
+    const handleClickOutSide = (event: MouseEvent) => {
+      let target = event.target as HTMLElement;
 
-      if (el.parentElement !== sortRef.current) {
+      if (target.parentElement !== sortRef.current) {
         setIsOpen(false);
       }
     };
@@ -68,7 +67,11 @@ export const Sort: React.FC = () => {
               <li
                 key={typeIndex}
                 onClick={() => onClickTypeSort(type)}
-                className={activeSortType === typeIndex ? "active" : ""}
+                className={
+                  activeSortType.sortProperty === type.sortProperty
+                    ? "active"
+                    : ""
+                }
               >
                 {type.name}
               </li>

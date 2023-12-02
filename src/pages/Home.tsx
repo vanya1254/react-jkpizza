@@ -2,13 +2,16 @@ import React from "react";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+
+import { useAppDispatch } from "../redux/store";
 import {
   setActivePage,
   setFilters,
   filterSelector,
 } from "../redux/slices/filterSlice";
 import { fetchItems, itemsSelector } from "../redux/slices/itemsSlice";
+import { SortType } from "../redux/slices/filterSlice";
 
 import { Categories } from "../components/Categories";
 import { Sort, typesSort } from "../components/Sort";
@@ -19,7 +22,7 @@ import NotFoundBlock from "../components/NotFoundBlock";
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
@@ -52,7 +55,6 @@ export const Home: React.FC = () => {
     //?${category}&sortBy=${sortBy}&${search}&${page}
 
     dispatch(
-      // @ts-ignore
       fetchItems({
         // filters: activeFilters.join(" "),
         sortBy,
@@ -85,13 +87,23 @@ export const Home: React.FC = () => {
 
   React.useEffect(() => {
     if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
-
-      const sortBy = typesSort.find(
-        (type) => type.sortProperty === params.sortBy
+      const { category, sortBy, title, page } = qs.parse(
+        window.location.search.substring(1)
       );
+      if (category && sortBy && title && page) {
+        const sort = typesSort.find(
+          (type) => type.sortProperty === sortBy
+        ) as SortType;
 
-      dispatch(setFilters({ ...params, sortBy }));
+        dispatch(
+          setFilters({
+            activeCategory: Number(category),
+            activeSortType: sort,
+            searchValue: String(title),
+            activePage: Number(page),
+          })
+        );
+      }
 
       isSearch.current = true;
     }
@@ -116,9 +128,7 @@ export const Home: React.FC = () => {
   const pizzaSkeletons = [...new Array(6)].map((_, id) => (
     <Skeleton key={id} />
   ));
-  const pizzas = items.map((item: any) => (
-    <PizzaBlock key={item.id} {...item} />
-  ));
+  const pizzas = items.map((item) => <PizzaBlock key={item.id} {...item} />);
 
   return (
     <div className="container">

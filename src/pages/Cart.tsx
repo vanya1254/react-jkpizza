@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { clearItems, cartSelector } from "../redux/slices/cartSlice";
 
-import { CartItem, CartItemProps } from "../components/CartItem";
+import { CartItem } from "../components/CartItem";
 import { CartEmpty } from "../components/CartEmpty";
 
 export const Cart: React.FC = () => {
@@ -102,7 +102,7 @@ export const Cart: React.FC = () => {
           </div>
         </div>
         <div className="content__items">
-          {items.map((item: CartItemProps) => (
+          {items.map((item) => (
             <CartItem key={item.id} {...item} />
           ))}
         </div>
