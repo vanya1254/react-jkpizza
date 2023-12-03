@@ -186,6 +186,23 @@ body {
             display: none;
           }
         }
+
+        // &:disabled {
+        //   opacity: 0.4;
+        //   border-color: $borderButtonDisabled;
+        //   color: $borderButtonDisabled;
+
+        //   cursor: inherit;
+
+        //   &:active {
+        //     transform: none;
+        //   }
+
+        //   &:hover {
+        //     background-color: transparent;
+        //     color: $borderButtonDisabled;
+        //   } //if need
+        // }
       }
 
       b {

@@ -133,8 +133,8 @@ export const Home: React.FC = () => {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories />
-        <Sort />
+        <Categories categoryId={activeCategory} />
+        <Sort sortType={activeSortType} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">

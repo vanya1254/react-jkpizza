@@ -1,5 +1,7 @@
-import { useSelector, useDispatch } from "react-redux";
-import { setActiveCategory, filterSelector } from "../redux/slices/filterSlice";
+import React from "react";
+import { useDispatch } from "react-redux";
+
+import { setActiveCategory } from "../redux/slices/filterSlice";
 
 const categories = [
   "Все",
@@ -10,24 +12,28 @@ const categories = [
   "Закрытые",
 ];
 
-export const Categories: React.FC = () => {
-  const dispatch = useDispatch();
-
-  const { activeCategory } = useSelector(filterSelector);
-
-  return (
-    <div className="categories">
-      <ul>
-        {categories.map((category, categoryIndex) => (
-          <li
-            key={categoryIndex}
-            onClick={() => dispatch(setActiveCategory(categoryIndex))}
-            className={activeCategory === categoryIndex ? "active" : ""}
-          >
-            {category}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+type CategoriesProps = {
+  categoryId: number;
 };
+
+export const Categories: React.FC<CategoriesProps> = React.memo(
+  ({ categoryId }) => {
+    const dispatch = useDispatch();
+
+    return (
+      <div className="categories">
+        <ul>
+          {categories.map((category, categoryIndex) => (
+            <li
+              key={categoryIndex}
+              onClick={() => dispatch(setActiveCategory(categoryIndex))}
+              className={categoryId === categoryIndex ? "active" : ""}
+            >
+              {category}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+);

@@ -1,10 +1,6 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  setActiveSortType,
-  filterSelector,
-  SortType,
-} from "../redux/slices/filterSlice";
+import { useDispatch } from "react-redux";
+import { setActiveSortType, SortType } from "../redux/slices/filterSlice";
 
 export const typesSort: SortType[] = [
   { name: "популярности (DESC)", sortProperty: "rating" },
@@ -15,9 +11,12 @@ export const typesSort: SortType[] = [
   { name: "алфавиту (ASC)", sortProperty: "-title" },
 ];
 
-export const Sort: React.FC = () => {
+type SortTypeProps = {
+  sortType: SortType;
+};
+
+export const Sort: React.FC<SortTypeProps> = React.memo(({ sortType }) => {
   const dispatch = useDispatch();
-  const { activeSortType } = useSelector(filterSelector);
 
   const [isOpen, setIsOpen] = React.useState(false);
 
@@ -58,7 +57,7 @@ export const Sort: React.FC = () => {
           ></path>
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsOpen(!isOpen)}>{activeSortType.name}</span>
+        <span onClick={() => setIsOpen(!isOpen)}>{sortType.name}</span>
       </div>
       {isOpen && (
         <div className="sort__popup">
@@ -68,9 +67,7 @@ export const Sort: React.FC = () => {
                 key={typeIndex}
                 onClick={() => onClickTypeSort(type)}
                 className={
-                  activeSortType.sortProperty === type.sortProperty
-                    ? "active"
-                    : ""
+                  sortType.sortProperty === type.sortProperty ? "active" : ""
                 }
               >
                 {type.name}
@@ -81,4 +78,4 @@ export const Sort: React.FC = () => {
       )}
     </div>
   );
-};
+});
