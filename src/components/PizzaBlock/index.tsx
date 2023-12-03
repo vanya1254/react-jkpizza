@@ -2,11 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  CartItemType,
-  addToItems,
-  cartItemByIdSelector,
-} from "../../redux/slices/cartSlice";
+import { addToItems } from "../../redux/cart/slice";
+import { CartItemType } from "../../redux/cart/types";
+import { cartItemByIdSelector } from "../../redux/cart/selectors";
 
 // import styles from "./PizzaBlock.module.scss";
 

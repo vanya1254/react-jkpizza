@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { setActiveCategory } from "../redux/slices/filterSlice";
+import { setActiveCategory } from "../redux/filter/slice";
 
 const categories = [
   "Все",

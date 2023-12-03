@@ -5,13 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { useAppDispatch } from "../redux/store";
-import {
-  setActivePage,
-  setFilters,
-  filterSelector,
-} from "../redux/slices/filterSlice";
-import { fetchItems, itemsSelector } from "../redux/slices/itemsSlice";
-import { SortType } from "../redux/slices/filterSlice";
+import { setActivePage, setFilters } from "../redux/filter/slice";
+import { filterSelector } from "../redux/filter/selectors";
+import { SortType } from "../redux/filter/types";
+
+import { fetchItems } from "../redux/items/slice";
+import { itemsSelector } from "../redux/items/selectors";
 
 import { Categories } from "../components/Categories";
 import { Sort, typesSort } from "../components/Sort";

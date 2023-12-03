@@ -6,9 +6,9 @@ import {
   minusItem,
   removeItem,
   setTotalPrice,
-  cartSelector,
-  CartItemType,
-} from "../../redux/slices/cartSlice";
+} from "../../redux/cart/slice";
+import { CartItemType } from "../../redux/cart/types";
+import { cartSelector } from "../../redux/cart/selectors";
 
 export const CartItem: React.FC<CartItemType> = ({
   id,
