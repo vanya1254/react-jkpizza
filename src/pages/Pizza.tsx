@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-export const Pizza: React.FC = () => {
+const Pizza: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [pizza, setPizza] = React.useState<{
@@ -40,3 +40,5 @@ export const Pizza: React.FC = () => {
     </div>
   );
 };
+
+export default Pizza;

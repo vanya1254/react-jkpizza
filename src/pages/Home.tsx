@@ -12,12 +12,15 @@ import { SortType } from "../redux/filter/types";
 import { fetchItems } from "../redux/items/slice";
 import { itemsSelector } from "../redux/items/selectors";
 
-import { Categories } from "../components/Categories";
-import { Sort, typesSort } from "../components/Sort";
-import { PizzaBlock } from "../components/PizzaBlock";
-import Skeleton from "../components/PizzaBlock/Skeleton";
-import { Pagination } from "../components/Pagination";
-import NotFoundBlock from "../components/NotFoundBlock";
+import {
+  Categories,
+  Sort,
+  typesSort,
+  PizzaBlock,
+  Skeleton,
+  Pagination,
+  NotFoundBlock,
+} from "../components";
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
