@@ -20,9 +20,9 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
-        <Route path="" element={<Home />} />
+        <Route path="react-jkpizza/" element={<Home />} />
         <Route
-          path="cart"
+          path="react-jkpizza/cart"
           element={
             <Suspense fallback={<div>Loading...</div>}>
               <Cart />
@@ -30,7 +30,7 @@ const App = () => {
           }
         />
         <Route
-          path="pizza/:id"
+          path="react-jkpizza/pizza/:id"
           element={
             <Suspense fallback={<div>Loading...</div>}>
               <Pizza />

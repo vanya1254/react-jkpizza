@@ -2,7 +2,7 @@
   "name": "react-jkpizza",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://vanya1254.github.io/react-jkpizza",
+  "homepage": "https://vanya1254.github.io/react-jkpizza/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",
     "@testing-library/jest-dom": "^5.17.0",

@@ -21,7 +21,7 @@ const Pizza: React.FC = () => {
         setPizza(data);
       } catch (error) {
         console.log(error);
-        navigate("/");
+        navigate("react-jkpizza/");
       }
     };
 
