@@ -57,7 +57,7 @@ export const Sort: React.FC<SortTypeProps> = React.memo(({ sortType }) => {
             fill="#2C2C2C"
           ></path>
         </svg>
-        <b>Сортировка по:</b>
+        <b>Сортировка&nbsp;по:</b>
         <span onClick={() => setIsOpen(!isOpen)}>{sortType.name}</span>
       </div>
       {isOpen && (

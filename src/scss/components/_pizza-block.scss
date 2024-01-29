@@ -65,4 +65,8 @@
     line-height: 27px;
     letter-spacing: 0.015em;
   }
+
+  @media (max-width: 370px) {
+    width: 100%;
+  }
 }
